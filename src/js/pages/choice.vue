@@ -1,6 +1,6 @@
 <template>
     <div class="choice">
-        <div class="choice-img" style="background-image:url(../img/uar_main.jpg)">
+        <div class="choice-img" style="background-image:url(../img/choice_main.jpg)">
             <div class="where">
                 <div class="where-question">Куда Вы хотите поехать?</div>
                 <div action="" class="where-form">
@@ -39,7 +39,8 @@
                 </div>
             </div>
         </div>
-        <tour-cards :tours="filteredTours"></tour-cards>
+        <tour-cards :tours="filteredTours" v-if="filteredTours.length != 0"></tour-cards>
+        <div class="nothing" v-else>К сожалению, туров не найдено. Попробуйте изменить параметры поиска.</div>
     </div>
 </template>
     
@@ -206,6 +207,11 @@ export default {
 
 .filter-btn:hover .filter-btn-div:after {
     width: 100%;
+}
+.nothing {
+    background-color: $mainColorGrey;
+    padding: 30px;
+    text-align: center;
 }
 
 

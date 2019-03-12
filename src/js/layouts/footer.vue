@@ -1,22 +1,24 @@
 <template>
     <div class="footer">
         <div class="footer_block">
-            <div class="footer_logo" :style="'background-image:url(\'/img/'+contactsList.tradeMark.logo+'\')'">
-            </div>
+            <router-link to='/' exact>
+                <div class="footer_logo" :style="'background-image:url(\'/img/'+contactsList.tradeMark.logo+'\')'">
+                </div>
+            </router-link>
             <div v-html="contactsList.tradeMark.description">
             </div>
         </div>
         <div class="footer_block">
             <div class="footer_p">Контакты
             </div>
-            <div class="footer_contacts" v-bind:key="footerItem.id" v-for="footerItem in contactsList.contacts" v-html="contactsShow(footerItem.icon, footerItem.description)">
+            <div class="footer_contacts" :key="footerItem.description" v-for="footerItem in contactsList.contacts" v-html="contactWithIcon(footerItem.icon, footerItem.description)">
             </div>
         </div>
         <div class="footer_block">
             <div class="footer_p">Мы в социальных сетях
             </div>
-            <div class="nets">
-                <a href="" v-bind:key="footerSocialSitesItem.id" v-for="footerSocialSitesItem in contactsList.socialSites"
+            <div class="footer_nets">
+                <a href="" :key="footerSocialSitesItem.icon" v-for="footerSocialSitesItem in contactsList.socialSites"
                     v-html="footerSocialSitesItem.icon">
                 </a>
             </div>
@@ -38,7 +40,7 @@ export default {
         },
     },
     methods: {
-        contactsShow(icon, description) {
+        contactWithIcon(icon, description) {
             return icon + " " + description
         },
     },
@@ -81,26 +83,13 @@ export default {
     text-transform: uppercase;
 }
 
-.nets {
-    display: flex;
-    justify-content: center;
-}
-
-.nets i {
-    width: 34px;
-    height: 34px;
-    background: $mainColorWhite;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 34px;
-    color: $mainColorBrown;
-    margin-top: 15px;
-    margin-left: 5px;
-    margin-right: 5px;
-}
-
-.nets i:hover {
-    background: $mainColorOrange;
+.footer_nets {
+    @include nets;
+        i {
+            background: $mainColorWhite;
+            color: $mainColorBrown;
+            margin: 15px 5px;
+        }
 }
 
 @media screen and (max-width:600px) {

@@ -10,12 +10,13 @@
                 <hr class="destination-hr">
                 <div class="destination-about">{{destination.description2}}</div>
                 <div>
-                    <button type="button" class="destination-btn"><a class="destination-btn-a" href="#form">Связаться с
-                            нами</a></button>
+                    <button type="button" class="destination-btn">
+                        <a class="destination-btn-a" href="#form">Связаться с нами</a>
+                    </button>
                 </div>
             </div>
         </div>
-        <tour-cards :tours="tour"></tour-cards>
+        <tour-cards :tours="tours"></tour-cards>
     </div>
 </template>
 
@@ -43,11 +44,11 @@ export default {
         },
         destination: function () {
             let element = this.destinationName
-            return this.destinationsList.find(function (item) {
+            return this.destinationsList.find(function(item) {
                 return element == item.link
             })
         },
-        tour: function () {
+        tours: function () {
             let element = this.destination.id
             return this.toursList.filter(function (item) {
                 return element == item.destinationId
@@ -68,19 +69,11 @@ export default {
 }
 
 .destination-column {
-    display: flex;
-    width: 50%;
-    flex-direction: column;
-    justify-content: space-between;
-    text-align: center;
+    @include half-column
 }
 
 .destination-img {
-    width: 100%;
-    height: 600px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    @include half-img
 }
 
 .destination-icon {
@@ -90,10 +83,8 @@ export default {
 }
 
 .destination-title {
-    font-size: 3em;
+    @include half-title;
     margin-top: 20px;
-    text-transform: uppercase;
-    color: $mainColorBrown;
 }
 
 .destination-hr {
@@ -105,34 +96,11 @@ export default {
 }
 
 .destination-btn {
-    display: flex;
-    justify-content: center;
-    height: 100px;
-    background-color: $mainColorOrange;
-    text-transform: uppercase;
-    font-size: 2em;
-    color: $mainColorWhite;
-    width: 100%;
-    border: none;
-    outline: none;
-    cursor: pointer;
+    @include сonnect-btn
 }
 
-.destination-btn-a,
-.destination-btn-a:hover,
-.destination-btn-a:active {
-    color: $mainColorWhite;
-    border: none;
-    outline: none;
-}
-
-.destination-btn-a:after {
-    display: block;
-    content: "";
-    height: 2px;
-    width: 0%;
-    background-color: $mainColorWhite;
-    transition: width .3s ease-in-out;
+.destination-btn-a {
+    @include сonnect-btn-a
 }
 
 .destination-btn:hover .destination-btn-a:after {

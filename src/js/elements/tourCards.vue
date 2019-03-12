@@ -1,7 +1,7 @@
 <template>
     <div class="offer-background">
         <div class="offer-items">
-            <div class="offer-block" v-bind:key="item.id" v-for="item in tours">
+            <div class="offer-block" :key="item.id" v-for="item in tours">
                 <router-link :to="'/tours/' + item.link">
                     <div class="offer-img" :style="'background-image:url(\'/img/'+item.picture+'\')'">
                         <div class="offer-hidden">
@@ -11,7 +11,7 @@
                     <div class="rec-text">
                         <p class="offer-p">{{item.title}}</p>
                         <hr class="rec-line">
-                        <p class="offer-p-little">от ${{newNumber(item.price)}}</p>
+                        <p class="offer-p-little">от ${{formatPrice(item.price)}}</p>
                     </div>
                 </router-link>
             </div>
@@ -23,30 +23,7 @@
 export default {
     props: ['tours'],
     methods: {
-        newNumber: function (number) {
-            let decimals = 0
-            let dec_point = ''
-            let thousands_sep = ' '
-            number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
-            var n = !isFinite(+number) ? 0 : +number,
-                prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
-                sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
-                dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
-                s = '',
-                toFixedFix = function (n, prec) {
-                    var k = Math.pow(10, prec);
-                    return '' + Math.round(n * k) / k;
-                };
-            s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
-            if (s[0].length > 3) {
-                s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
-            }
-            if ((s[1] || '').length < prec) {
-                s[1] = s[1] || '';
-                s[1] += new Array(prec - s[1].length + 1).join('0');
-            }
-            return s.join(dec);
-        }
+        
     },
 }
 

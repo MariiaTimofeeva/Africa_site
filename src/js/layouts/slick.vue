@@ -5,7 +5,7 @@
         <div class="carousel-background">
             <div class="carousel-items">
                 <slick ref="slick" :options="slickOptions">
-                    <div class="carousel_block" v-bind:key="item.id" v-for="item in popularTours">
+                    <div class="carousel-block" :key="item.id" v-for="item in popularTours">
                         <router-link :to="'/tours/' +item.link">
                             <div class="carousel-img" :style="'background-image:url(\'/img/'+item.picture+'\')'">
                                 <div class="carousel-hidden">
@@ -15,7 +15,7 @@
                             <div class="rec-text">
                                 <p class="carousel-p">{{item.title}}</p>
                                 <hr class="rec-line">
-                                <p class="carousel-p-little">от ${{newNumber(item.price)}}</p>
+                                <p class="carousel-p-little">от ${{formatPrice(item.price)}}</p>
                             </div>
                         </router-link>
                     </div>
@@ -49,7 +49,6 @@ export default {
                 nextArrow: '<i class="fas fa-chevron-circle-right"></i>',
                 prevArrow: '<i class="fas fa-chevron-circle-left"></i>',
             },
-            // countSlickElements: 3
         };
     },
     computed: {
@@ -70,39 +69,12 @@ export default {
         },
     },
     methods: {
-        newNumber: function (number) {
-            let decimals = 0
-            let dec_point = ''
-            let thousands_sep = ' '
-            number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
-            var n = !isFinite(+number) ? 0 : +number,
-                prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
-                sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
-                dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
-                s = '',
-                toFixedFix = function (n, prec) {
-                    var k = Math.pow(10, prec);
-                    return '' + Math.round(n * k) / k;
-                };
-            s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
-            if (s[0].length > 3) {
-                s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
-            }
-            if ((s[1] || '').length < prec) {
-                s[1] = s[1] || '';
-                s[1] += new Array(prec - s[1].length + 1).join('0');
-            }
-            return s.join(dec);
-        },
-
         requestPopularToursIds: async function () {
             this.popularToursIds = await this.$store.dispatch('GET_POPULARTOURSIDS')
         },
 
         handleResize: function () {
-            console.log(this.countSlickElements)
             let width = window.innerWidth
-            console.log(width)
             if (width <= 1200) {
                 this.slickOptions.slidesToShow = 1
                 this.countSlickElements = 1
@@ -159,15 +131,15 @@ export default {
     width: 1280px;
 }
 
-.carousel_block {
+.carousel-block {
     height: 510px;
 }
 
-.carousel_block:hover {
+.carousel-block:hover {
     display: block;
 }
 
-.carousel_block:focus {
+.carousel-block:focus {
     outline: none;
 }
 

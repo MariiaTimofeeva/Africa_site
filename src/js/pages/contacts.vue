@@ -6,13 +6,13 @@
             </div>
         </div>
         <div class="contacts_block">
-            <div class="contacts_contacts" v-bind:key="contactsItem.id" v-for="contactsItem in contactsList.contacts"
-                v-html="contactsShow(contactsItem.icon, contactsItem.description)">
+            <div class="contacts_contacts" :key="contactsItem.description" v-for="contactsItem in contactsList.contacts"
+                v-html="contactWithIcon(contactsItem.icon, contactsItem.description)">
             </div>
         </div>
         <div class="contacts_block">
             <div class="contacts_nets">
-                <a href="" v-bind:key="socialSitesItem.id" v-for="socialSitesItem in contactsList.socialSites" v-html="socialSitesItem.icon">
+                <a href="" :key="socialSitesItem.icon" v-for="socialSitesItem in contactsList.socialSites" v-html="socialSitesItem.icon">
                 </a>
             </div>
         </div>
@@ -40,7 +40,7 @@ export default {
         },
     },
     methods: {
-        contactsShow(icon, description) {
+        contactWithIcon(icon, description) {
             return icon + " " + description
         },
     },
@@ -68,30 +68,18 @@ export default {
     padding-top: 15px;
 }
 
-
 .contacts_contacts {
     padding-bottom: 10px;
 }
 
 .contacts_nets {
-    display: flex;
-    justify-content: center;
-}
-
-.contacts_nets i {
-    width: 34px;
-    height: 34px;
-    background: $mainColorBrown;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 34px;
-    color: $mainColorWhite;
-    margin-left: 5px;
-    margin-right: 5px;
-}
-
-.contacts_nets i:hover {
-    background: $mainColorOrange;
+    @include nets;
+        i {
+            background: $mainColorBrown;
+            color: $mainColorWhite;
+            margin-left: 5px;
+            margin-right: 5px; 
+        }
 }
 
 .contacts_map {

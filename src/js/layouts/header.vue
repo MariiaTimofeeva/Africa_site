@@ -4,17 +4,10 @@
             <div class="main_logo" :style="'background-image:url(\'/img/'+menuList.logo+'\')'">
             </div>
         </router-link>
-        <i class="fas fa-bars"></i>
-        <ul class="main_nav">
-            <li class="menu_li" v-bind:key="item.id" v-for="item in menuList.menu">
-                <router-link v-if="typeof item.subMenuItems == 'undefined'" :to="'/'+item.link" class='menu_a' exact>{{item.name}}</router-link>
-                <div :class="addClass(item.link)" class="menu_a" v-else>{{item.name}}</div>
-                <ul v-if="typeof item.subMenuItems != 'undefined'" class="sub_menu">
-                    <li v-bind:key="subMenuItem.id" v-for="subMenuItem in item.subMenuItems">
-                        <router-link :to="'/' +item.link+'/'+subMenuItem.link">{{subMenuItem.name}}</router-link>
-                    </li>
-                </ul>
-            </li>
+        <i class="fas fa-bars" @mouseover="isHovered2=true" @mouseleave="isHovered2=false"></i>
+        <ul class="main_nav" @mouseover="isHovered2=true" @mouseleave="isHovered2=false" :class="{'main_nav_opened':isHovered2}">
+            <menu-item :item="item" :key="item.name" v-for="item in menuList.menu">
+            </menu-item>
         </ul>
     </div>
 </template>
@@ -22,10 +15,15 @@
 
 
 <script>
+import menuItem from '../layouts/menuItem.vue'
 import axios from 'axios'
 export default {
+    components: {
+        menuItem
+    },
     data() {
         return {
+            isHovered2: false,
             isDataLoaded: false,
         }
     },
@@ -38,21 +36,15 @@ export default {
         requestMenu: async function () {
             this.menu = await this.$store.dispatch('GET_MENU')
         },
-
-        addClass: function (link) {
-            let str = this.$route.path
-            if (str.includes(link)) {
-                return 'router-link-active'
-            } else {
-                return ''
-            }
-        },
     },
     created: async function () {
         await this.requestMenu()
-        this.addClass('countries')
         this.isDataLoaded = true
+    },
+    watch: {$route: function () {
+        this.isHovered2=false
     }
+    },
 }
 
 </script>
@@ -99,6 +91,7 @@ a:hover {
     padding: 15px;
     color: $mainColorWhite;
     text-transform: uppercase;
+    cursor: pointer;
 }
 
 .header .fa-bars {
@@ -137,10 +130,14 @@ a:hover {
     z-index: 2;
 }
 
-.menu_li:hover .sub_menu {
+// .menu_li:hover .sub_menu {
+//     display: block;
+// }
+
+
+.main_nav .menu_li.menu_li_opened .sub_menu {
     display: block;
 }
-
 a.router-link-active {
     color: $mainColorOrange;
 }
@@ -181,21 +178,29 @@ div.router-link-active.menu_a:after {
         display: none;
     }
 
-    .header .fa-bars:hover+.main_nav {
-        display: block;
-        position: absolute;
-        right: 0;
-        top: 60px;
-        background-color: $mainColorBrown;
+    // .header .fa-bars:hover+.main_nav {
+    //     display: block;
+    //     position: absolute;
+    //     right: 0;
+    //     top: 60px;
+    //     background-color: $mainColorBrown;
+    // }
+    .header .fa-bars+.main_nav_opened.main_nav {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 60px;
+    background-color: $mainColorBrown;
     }
 
-    .main_nav:hover {
-        display: block;
-        position: absolute;
-        right: 0;
-        top: 60px;
-        background-color: $mainColorBrown;
-    }
+
+    // .main_nav:hover {
+    //     display: block;
+    //     position: absolute;
+    //     right: 0;
+    //     top: 60px;
+    //     background-color: $mainColorBrown;
+    // }
 
     .header .fa-bars:hover {
         color: $mainColorOrange;

@@ -51,13 +51,6 @@ export default {
 </script>
 
 <style lang="scss">
-body {
-    margin: 0;
-    font-family: 'Oswald', sans-serif;
-}
 
-button {
-    font-family: 'Oswald', sans-serif;
-}
  </style>
  
