@@ -130,11 +130,6 @@ a:hover {
     z-index: 2;
 }
 
-// .menu_li:hover .sub_menu {
-//     display: block;
-// }
-
-
 .main_nav .menu_li.menu_li_opened .sub_menu {
     display: block;
 }
@@ -178,13 +173,7 @@ div.router-link-active.menu_a:after {
         display: none;
     }
 
-    // .header .fa-bars:hover+.main_nav {
-    //     display: block;
-    //     position: absolute;
-    //     right: 0;
-    //     top: 60px;
-    //     background-color: $mainColorBrown;
-    // }
+
     .header .fa-bars+.main_nav_opened.main_nav {
     display: block;
     position: absolute;
@@ -193,18 +182,8 @@ div.router-link-active.menu_a:after {
     background-color: $mainColorBrown;
     }
 
-
-    // .main_nav:hover {
-    //     display: block;
-    //     position: absolute;
-    //     right: 0;
-    //     top: 60px;
-    //     background-color: $mainColorBrown;
-    // }
-
     .header .fa-bars:hover {
         color: $mainColorOrange;
-
     }
 
     .menu_li {

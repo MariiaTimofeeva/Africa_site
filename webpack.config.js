@@ -1,7 +1,6 @@
 const { VueLoaderPlugin } = require('vue-loader')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require('path')
-// const images = require('./src/img');
 module.exports = {
   mode: 'development',
   entry: './src/js/app.js',
@@ -32,7 +31,6 @@ module.exports = {
               }
         
             ]
-          // loader: 'style-loader!css-loader!sass-loader'
       }, 
       {
         test: /\.css$/,
@@ -44,8 +42,6 @@ module.exports = {
       test: /\.(jpg|png|svg)$/,
       use: [ {
       loader: 'file-loader'}],
-      // options: {
-      //     name: 'images/[name].[ext]'},
       },
     ]
   },

@@ -90,7 +90,6 @@ const router = new VueRouter({
   }
 })
 
-// для создание фреймворка - пишем NEW... 
 new Vue({
   el: '#app',
   router,

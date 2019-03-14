@@ -102,7 +102,6 @@ export default {
         width: 100%;
     }
 
-
     .info-about {
         margin: 20px 50px 50px 50px;
     }

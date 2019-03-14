@@ -131,10 +131,6 @@ export default {
     width: 1280px;
 }
 
-.carousel-block {
-    height: 510px;
-}
-
 .carousel-block:hover {
     display: block;
 }
